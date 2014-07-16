@@ -2,7 +2,7 @@
  * @author Rodrigo Duarte Louro
  * @dateJul 14, 2014
  */
-package com.scenes;
+package com.scenes
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
