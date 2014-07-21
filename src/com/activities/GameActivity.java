@@ -14,6 +14,9 @@ import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.ui.activity.BaseGameActivity;
 
+import android.content.Intent;
+
+import com.facebook.Session;
 import com.managers.ResourcesManager;
 import com.managers.SceneManager;
 import com.util.Constants;
@@ -24,6 +27,14 @@ public class GameActivity extends BaseGameActivity {
 	private Camera camera; 
 	private ResourcesManager resourcesManager; 
 
+	
+	//Talvez esse metodo tenha que ir pra ouro lugar. 
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	  super.onActivityResult(requestCode, resultCode, data);
+	  Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+	}
+	
 	@Override
 	public EngineOptions onCreateEngineOptions() {
 	    camera = new Camera(0, 0, Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT);
