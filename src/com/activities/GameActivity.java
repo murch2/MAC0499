@@ -15,6 +15,7 @@ import org.andengine.entity.scene.Scene;
 import org.andengine.ui.activity.BaseGameActivity;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 
 import com.facebook.Session;
 import com.managers.ResourcesManager;

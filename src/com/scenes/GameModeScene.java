@@ -13,12 +13,14 @@ import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.util.adt.color.Color;
 
 import android.os.Bundle;
+import android.view.Gravity;
 
 import com.facebook.*;
 import com.facebook.model.*;
 
 import com.managers.ResourcesManager;
 import com.managers.SceneManager.SceneType;
+import com.facebook.widget.LoginButton;
 
 public class GameModeScene extends BaseScene implements IOnMenuItemClickListener {
 
@@ -28,10 +30,11 @@ public class GameModeScene extends BaseScene implements IOnMenuItemClickListener
 
 	@Override
 	public void createScene() {
+		tentativaDeLogin(); 
 		createBackground();
 		createGameModeMenu(); 
 	}
-
+	
 	@Override
 	public void onBackKeyPressed() {
 
