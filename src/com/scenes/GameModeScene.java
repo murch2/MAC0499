@@ -12,17 +12,16 @@ import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.util.adt.color.Color;
 
-import android.os.Bundle;
-import android.view.Gravity;
-
-import com.facebook.*;
-import com.facebook.model.*;
-
-import com.managers.ResourcesManager;
+import com.facebook.Request;
+import com.facebook.Request.GraphUserCallback;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.model.GraphUser;
 import com.managers.SceneManager.SceneType;
-import com.facebook.widget.LoginButton;
+import com.util.FacebookFacade;
 
-public class GameModeScene extends BaseScene implements IOnMenuItemClickListener {
+public class GameModeScene extends BaseScene implements IOnMenuItemClickListener,GraphUserCallback {
 
 	private MenuScene gameMenu; 
 	private final int MENU_SINGLE_PLAYER = 0;
@@ -30,7 +29,9 @@ public class GameModeScene extends BaseScene implements IOnMenuItemClickListener
 
 	@Override
 	public void createScene() {
-		tentativaDeLogin(); 
+		//Talvez essa variavel do facebook tenha que ser usada em mais lugares na classe. 
+		FacebookFacade fb = new FacebookFacade(); 
+		fb.login(this); 
 		createBackground();
 		createGameModeMenu(); 
 	}
@@ -86,7 +87,6 @@ public class GameModeScene extends BaseScene implements IOnMenuItemClickListener
 			float pMenuItemLocalX, float pMenuItemLocalY) {
 		switch (pMenuItem.getID()) {
 		case MENU_SINGLE_PLAYER:
-			tentativaDeLogin(); 
 			return true; 
 
 		default:
@@ -95,32 +95,15 @@ public class GameModeScene extends BaseScene implements IOnMenuItemClickListener
 		return false;
 	}
 
-	public void tentativaDeLogin(){
-		// start Facebook Login
-		Session.openActiveSession(resourcesManager.activity, true, new Session.StatusCallback() {
-			// callback when session changes state
-			@Override
-			public void call(Session session, SessionState state, Exception exception) {
-				if(session.isOpened()) {
-					//Aqui eu pego as informações do cara. 
-					System.out.println("A sesssion foi aberta!");
-					Request.newMeRequest(session, new Request.GraphUserCallback() {
 
-						  // callback after Graph API response with user object
-						  @Override
-						  public void onCompleted(GraphUser user, Response response) {
-							  System.out.println("Aqui completou o request das informações do user");
-							  if (user != null) {
-								  System.out.println("Nome do user = " + user.getFirstName() + " " + 
-							  user.getMiddleName() + " " + user.getLastName());
-								  System.out.println("link do usuario = " + user.getLink());
-								  System.out.println("Id = " + user.getId());
-								  System.out.println("Response = " + response);
-							  }
-						  }
-						}).executeAsync();
-				}
-			}
-		});
+	@Override
+	public void onCompleted(GraphUser user, Response response) {
+		//Se a classe só faz um pedido ao facebook tranquilo. 
+		//agora se a classe fizer dois dá pra criar uma cariavel de estado pra guardar 
+		//qual foi o ultimo que se faz e se pode fazer pq num tem nenhum sendo feito. 
+		if (user != null) {
+			System.out.println("Nome do user aqui no gameModeScene = " + user.getName());
+		}
 	}
+	
 }
