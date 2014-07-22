@@ -72,13 +72,12 @@ public class GameActivity extends BaseGameActivity {
 	                mEngine.unregisterUpdateHandler(pTimerHandler);
 	                //Tenho que confirmar se a primeira vez deve começar com falso. 
 	                if (GameManager.getInstance().alreadyLogedInFacebook()) {
-	                	System.out.println("DEBUG - Tá devolvendo true na activity");
+//	            
 	                	SceneManager.getInstance().createMainMenuScene();
 	                }
 //	                Talvez aqui eu tenha que fazer mais alguma verificação pra ver se eu consigo pegar os dados do usuario 
 //	                pra confirmar se ele está mesmo logado. 
 	                else {
-	                	System.out.println("DEBUG - Tá devolvendo false na activity");
 	                	SceneManager.getInstance().createConnectScene();
 	                }
 	            }

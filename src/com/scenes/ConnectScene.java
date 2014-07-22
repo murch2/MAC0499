@@ -100,6 +100,7 @@ public class ConnectScene extends BaseScene implements IOnMenuItemClickListener,
 		attachChild(text);
 	}
 
+	//Não sei se esse metodo precisa ser boolean 
 	@Override
 	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,
 			float pMenuItemLocalX, float pMenuItemLocalY) {
@@ -121,8 +122,10 @@ public class ConnectScene extends BaseScene implements IOnMenuItemClickListener,
 		//agora se a classe fizer dois dá pra criar uma cariavel de estado pra guardar 
 		//qual foi o ultimo que se faz e se pode fazer pq num tem nenhum sendo feito. 
 		if (user != null) {
+			GameManager.getInstance().setLoggedUser(true); 
 			GameManager.getInstance().getDataInMemory().saveData(Constants.FACEBOOK_LOGIN, true);
-			//Seta variaveis tipo o nome do usuario pra mostrar no mainMenu. 
+			GameManager.getInstance().setUserName(user.getFirstName() + " " + user.getMiddleName() + " " + user.getLastName()); 
+			GameManager.getInstance().setUserID(user.getId()); 
 			SceneManager.getInstance().createMainMenuScene(); 
 		}
 	}

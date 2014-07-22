@@ -22,21 +22,19 @@ import android.os.AsyncTask;
 
 public class HTTPPostRequester {
 
-	private String url = "http://10.0.0.2/Requisicao.php"; 
+	private String url = "http://192.168.0.149/Requisicao.php"; 
 
 	public JSONObject post(JSONObject jsonParams) {
-		System.out.println("DEBUG 1");
 		HttpClient httpClient = new DefaultHttpClient(); 
 		HttpPost post = new HttpPost(url);
 		try {
 			StringEntity entityParams = new StringEntity(jsonParams.toString());
 			post.setEntity(entityParams);
-			System.out.println("DEBUG 2");
 			post.addHeader("content-type", "application/x-www-form-urlencoded");
+			System.out.println("DEBUG - Antes de fazer o execute");
 			HttpResponse response = httpClient.execute(post);
-			System.out.println("DEBUG 3");
 			HttpEntity entity = response.getEntity();
-			System.out.println("DEBUG 4");
+			System.out.println("DEBUG - Passou to execute");
 			StringBuilder sb = new StringBuilder();
 
 			BufferedReader reader = 

@@ -2,8 +2,7 @@
 require 'ExecuteQuery.php';
 
  try {
- 	// $a = new TrataRequisicao($_POST['message']); 
- 	$a = new TrataRequisicao(); 
+ 	$a = new TrataRequisicao($_POST['message']); 
  }
  catch (Exception $e) { 
  	echo "Exception: ", $e->getMessage(), "\n"; 
@@ -14,19 +13,23 @@ require 'ExecuteQuery.php';
  	public $json; 
 
  	function __construct($json) {
+ 		$this->log("DEBUG1"); 
  		$json_decoded = json_decode($json, true); 
  		$this->tratandoRequisicao($json_decoded); 
  	}
 
+ 	// Se tiver herança o log tem que ir como herança
  	function log ($message) {
- 		$fp = fopen('/home/digao/servidor/bloco1.txt', 'a+') or die ("Permission error");
+ 		$fp = fopen('/home/digao/android/workspace/MAC0499/servidor/log.txt', 'a+') or die ("Permission error");
  		fwrite($fp, $message . "\n");
  		fclose($fp); 
  	}
 
  	function tratandoRequisicao ($json) {
+ 		$this->log("DEBUG2"); 
  		$j = json_decode($json); 
  		$r = array('chavinha' => 'valorzinho');
+ 		$this->log("DEBUG3"); 
  		$d = json_encode($r); 
  		exit($d); 
  		// if ($json["request_type"] == "infoDB") {

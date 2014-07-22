@@ -36,7 +36,7 @@ class InfoDB {
 	}
 
 	function log ($message) {
- 		$fp = fopen('/home/digao/servidor/bloco1.txt', 'a+') or die ("Permission error");
+ 		$fp = fopen('/home/digao/android/workspace/MAC0499/servidor/log.txt', 'a+') or die ("Permission error");
  		fwrite($fp, $message . "\n");
  		fclose($fp); 
  	}
