@@ -4,11 +4,26 @@
  */
 package com.managers;
 
+import com.util.Constants;
+import com.util.DataInMemory;
+
 public class GameManager {
-	private static final GameManager INSTANCE = new GameManager();
+	private static GameManager INSTANCE = new GameManager(); 
+	private DataInMemory dataInMemory = new DataInMemory(ResourcesManager.getInstance().activity, Constants.FILE_SAVE_DATA);
 	
-	public GameManager getInstance() {
+	public static GameManager getInstance() {
 		return INSTANCE; 
+	}
+	
+	public GameManager (){
+	}
+
+	public DataInMemory getDataInMemory() {
+		return dataInMemory;
+	}
+	
+	public boolean alreadyLogedInFacebook() {
+		return dataInMemory.readBooleanData(Constants.FACEBOOK_LOGIN); 
 	}
 	
 }

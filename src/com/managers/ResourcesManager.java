@@ -33,9 +33,8 @@ public class ResourcesManager {
     private BitmapTextureAtlas splashTextureAtlas;
     
     ///GameModeMenu
-    public ITextureRegion singlePlayerRegion;
-    public ITextureRegion multiplayerRegion;
-    private BuildableBitmapTextureAtlas gameModeMenuAtlas; 
+    public ITextureRegion facebookConnectRegion;
+    private BuildableBitmapTextureAtlas facebookConnectMenuAtlas; 
     
     public Font font; 
 	public static ResourcesManager getInstance() {
@@ -51,42 +50,59 @@ public class ResourcesManager {
         getInstance().vbom = vbom;
     }
     
-    public synchronized void loadSplashScreen() { 
+    public synchronized void loadSplashScene() { 
     	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/scenes/splash/"); 
     	splashTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR); 
     	splashRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(splashTextureAtlas, activity, "splashScreen.png", 0, 0); 
     	splashTextureAtlas.load();
     }
     
-    public synchronized void unloadSplashScreen() {
+    public synchronized void unloadSplashScene() {
     	splashTextureAtlas.unload();
     	splashRegion = null;
+    	System.gc();
     }
     
-    public synchronized void loadGameModeMenu() {
+    public synchronized void loadConnectScene() {
     	loadFonts(); 
-    	loadGameModeGraphics(); 
+    	loadConnectGraphics(); 
     }
     
-    //Depois tenho que ver o que fazer com as fonts no livro
+    //Não sei se precisa desse método pq ele volta pro MainMenu então não sei se é bom 
+//    ficar load e unload no mainMenu (que é muito pesado)
+    public synchronized void unloadConnectScene() {
+    	System.gc();
+    }
+    
+    //Depois tenho que ver o que fazer com as fonts no livro, 
+//    Talvez tenha que ter um desse pra cada tela ou subtipo de font dentro de uma tela
     private synchronized void loadFonts() {
         FontFactory.setAssetBasePath("font/");
         final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-        font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "font.ttf", 50, true, Color.WHITE, 2, Color.BLACK);
+        font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "font.ttf", 35, true, Color.WHITE, 2, Color.BLACK);
         font.load();
     }
     
-    private synchronized void loadGameModeGraphics() {
-    	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/scenes/gameMode/"); 
-    	gameModeMenuAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 310, 160, TextureOptions.BILINEAR); 
-    	singlePlayerRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameModeMenuAtlas, activity, "singlePlayerButton.png");
-    	multiplayerRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameModeMenuAtlas, activity, "multiPlayerButton.png");
+    private synchronized void loadConnectGraphics() {
+    	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/scenes/connect/"); 
+    	facebookConnectMenuAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 470, 120, TextureOptions.BILINEAR); 
+    	facebookConnectRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(facebookConnectMenuAtlas, activity, "facebookLoginBtn.png");
     	
     	try {
-			this.gameModeMenuAtlas.build((new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1)));
-			this.gameModeMenuAtlas.load(); 
+			this.facebookConnectMenuAtlas.build((new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1)));
+			this.facebookConnectMenuAtlas.load(); 
 		} catch (TextureAtlasBuilderException e) {
 			e.printStackTrace();
 		}
     }
+    
+    public synchronized void loadMainMenuScene() {
+
+    }
+
+    public synchronized void unloadMainMenuScene() {
+
+    }
+    
+    
 }

@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 
 import com.facebook.Session;
+import com.managers.GameManager;
 import com.managers.ResourcesManager;
 import com.managers.SceneManager;
 import com.util.Constants;
@@ -29,7 +30,7 @@ public class GameActivity extends BaseGameActivity {
 	private ResourcesManager resourcesManager; 
 
 	
-	//Talvez esse metodo tenha que ir pra ouro lugar. 
+//	(Método para o facebook funcionar)
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	  super.onActivityResult(requestCode, resultCode, data);
@@ -67,8 +68,19 @@ public class GameActivity extends BaseGameActivity {
 	    {
 	            public void onTimePassed(final TimerHandler pTimerHandler) 
 	            {
+	            	
 	                mEngine.unregisterUpdateHandler(pTimerHandler);
-	                SceneManager.getInstance().createGameModeScene(); 
+	                //Tenho que confirmar se a primeira vez deve começar com falso. 
+	                if (GameManager.getInstance().alreadyLogedInFacebook()) {
+	                	System.out.println("DEBUG - Tá devolvendo true na activity");
+	                	SceneManager.getInstance().createMainMenuScene();
+	                }
+//	                Talvez aqui eu tenha que fazer mais alguma verificação pra ver se eu consigo pegar os dados do usuario 
+//	                pra confirmar se ele está mesmo logado. 
+	                else {
+	                	System.out.println("DEBUG - Tá devolvendo false na activity");
+	                	SceneManager.getInstance().createConnectScene();
+	                }
 	            }
 	    }));
 	    pOnPopulateSceneCallback.onPopulateSceneFinished();

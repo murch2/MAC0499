@@ -9,7 +9,8 @@ import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 
 import com.managers.ResourcesManager;
 import com.scenes.BaseScene;
-import com.scenes.GameModeScene;
+import com.scenes.ConnectScene;
+import com.scenes.MainMenuScene;
 import com.scenes.SplashScene;
 
 public class SceneManager {
@@ -20,7 +21,8 @@ public class SceneManager {
 	private Engine engine = ResourcesManager.getInstance().engine;
 	
 	private BaseScene splashScene; 
-	private BaseScene gameModeScene; 
+	private BaseScene connectScene; 
+	private BaseScene mainMenuScene; 
 	
 	public static SceneManager getInstance() {
 		return INSTANCE; 
@@ -28,7 +30,8 @@ public class SceneManager {
 	
 	public enum SceneType {
 		SPLASH_SCENE,
-		GAME_MODE_SCENE
+		CONNECT_SCENE, 
+		MAINMENU_SCENE
 	}
 	
 	//Talvez esse método possa ser private 
@@ -43,32 +46,42 @@ public class SceneManager {
 		case SPLASH_SCENE:
 			setScene(splashScene);
 			break;
-		case GAME_MODE_SCENE:
-			setScene(gameModeScene); 
+		case CONNECT_SCENE:
+			setScene(connectScene);
 		default:
 			break;
 		}
 	}
 	
 	public void createSplashScene(OnCreateSceneCallback pOnCreateSceneCallback) {
-		ResourcesManager.getInstance().loadSplashScreen(); 
+		ResourcesManager.getInstance().loadSplashScene(); 
 		splashScene = new SplashScene(); 
 		currentScene = splashScene; 
 		pOnCreateSceneCallback.onCreateSceneFinished(splashScene); 
 	}
 	
 	private void disposeSplashScene() {
-	    ResourcesManager.getInstance().unloadSplashScreen();
+	    ResourcesManager.getInstance().unloadSplashScene();
 	    splashScene.disposeScene();
 	    splashScene = null;
 	}
 
-	public void createGameModeScene() {
-	    ResourcesManager.getInstance().loadGameModeMenu(); 
-	    gameModeScene = new GameModeScene(); 
-	    setScene(gameModeScene);
+	public void createConnectScene() {
+	    ResourcesManager.getInstance().loadConnectScene(); 
+	    connectScene = new ConnectScene(); 
+	    setScene(connectScene);
 	    disposeSplashScene();
 	}
+	
+	public void createMainMenuScene() {
+	    ResourcesManager.getInstance().loadMainMenuScene(); 
+	    mainMenuScene = new MainMenuScene(); 
+	    setScene(mainMenuScene);
+	    //Acho que aqui tem que ter um if se o cara vem da connectScene ai da um dispose nela. 
+//	    disposeSplashScene(); 
+	}
+	
+	
 	
 	public BaseScene getCurrentScene() {
 		return currentScene; 
