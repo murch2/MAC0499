@@ -51,7 +51,6 @@ public class DataInMemory {
 		return preferences.getInt(key, 0);
 	}
 	
-	//Tenho que ver se o get boolean tá funcionando. 
 	public boolean readBooleanData(String key) {
 		return preferences.getBoolean(key, false); 
 	}
