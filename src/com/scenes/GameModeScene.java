@@ -12,14 +12,15 @@ import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.util.adt.color.Color;
 
-import com.facebook.Request;
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.facebook.Request.GraphUserCallback;
 import com.facebook.Response;
-import com.facebook.Session;
-import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 import com.managers.SceneManager.SceneType;
 import com.util.FacebookFacade;
+import com.util.DataInMemory;
 
 public class GameModeScene extends BaseScene implements IOnMenuItemClickListener,GraphUserCallback {
 
@@ -33,7 +34,7 @@ public class GameModeScene extends BaseScene implements IOnMenuItemClickListener
 		FacebookFacade fb = new FacebookFacade(); 
 		fb.login(this); 
 		createBackground();
-		createGameModeMenu(); 
+		createGameModeMenu();
 	}
 	
 	@Override
