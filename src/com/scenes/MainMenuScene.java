@@ -6,14 +6,30 @@ package com.scenes;
 
 import org.andengine.entity.scene.background.Background;
 import org.andengine.util.adt.color.Color;
+import org.json.JSONObject;
 
 import com.managers.SceneManager.SceneType;
+import com.server.HTTPPostRequester;
+import com.server.HTTPResponseListener;
+import com.server.MakeParameters;
 
-public class MainMenuScene extends BaseScene {
+public class MainMenuScene extends BaseScene implements HTTPResponseListener{
 
 	@Override
 	public void createScene() {
-		createBackground(); 
+		createBackground();
+		createButtonTest(); 
+		makeRequestTest(); 		
+	}
+	
+	private void createButtonTest() {
+		
+	}
+	
+	private void makeRequestTest() {
+		JSONObject obj = MakeParameters.makeTestparams();
+		new HTTPPostRequester().asyncPost(this, obj); 
+		
 	}
 
 	private void createBackground() {
@@ -35,6 +51,11 @@ public class MainMenuScene extends BaseScene {
 	public void disposeScene() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void onResponse(JSONObject json) {
+		System.out.println("O json recebedio é " + json);
 	}
 
 }

@@ -2,7 +2,7 @@
  * @author Rodrigo Duarte Louro
  * @dateJul 22, 2014
  */
-package com;
+package com.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,15 +25,18 @@ public class HTTPPostRequester {
 	private String url = "http://10.0.0.2/Requisicao.php"; 
 
 	public JSONObject post(JSONObject jsonParams) {
+		System.out.println("DEBUG 1");
 		HttpClient httpClient = new DefaultHttpClient(); 
 		HttpPost post = new HttpPost(url);
 		try {
 			StringEntity entityParams = new StringEntity(jsonParams.toString());
 			post.setEntity(entityParams);
+			System.out.println("DEBUG 2");
 			post.addHeader("content-type", "application/x-www-form-urlencoded");
 			HttpResponse response = httpClient.execute(post);
+			System.out.println("DEBUG 3");
 			HttpEntity entity = response.getEntity();
-			//Por enquanto só 
+			System.out.println("DEBUG 4");
 			StringBuilder sb = new StringBuilder();
 
 			BufferedReader reader = 
@@ -57,8 +60,9 @@ public class HTTPPostRequester {
 		return null;
 	}
 
-	public void asyncPost(HTTPResponseListener httpResponseListener) {
-		new HttpPostRequest(httpResponseListener).execute(url);
+	public void asyncPost(HTTPResponseListener httpResponseListener, JSONObject obj) {
+		System.out.println("DEBUG - chegou no async do postrequester: " + obj);
+		new HttpPostRequest(httpResponseListener).execute(url, obj.toString());
 	}
 
 	private class HttpPostRequest extends AsyncTask<String, String, JSONObject> {
@@ -66,22 +70,24 @@ public class HTTPPostRequester {
 		private HTTPResponseListener responseListener;
 
 		public HttpPostRequest(HTTPResponseListener responseListener) {
-			this.responseListener = responseListener;
+			this.responseListener = responseListener; 
 		}
 
 		@Override
 		protected JSONObject doInBackground(String... params) {
 			JSONObject obj = null;
 			try {
-				obj = new JSONObject(params[2]);
+				obj = new JSONObject(params[1]);
 			} catch (JSONException e) {
 				System.err.println("FUDEU TUDO AQUI NO ASSINCRONO");
 			} 
+			System.out.println("DEBUG - dentro da classe estranha obj = " + obj);
 			return HTTPPostRequester.this.post(obj);
 		}
 
 		protected void onPostExecute(JSONObject result) {
-			responseListener.onResponse(); 
+			System.out.println("DEBUG - result na classe estranha : " + result);
+			responseListener.onResponse(result); 
 		}
 	}
 

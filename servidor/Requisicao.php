@@ -25,15 +25,17 @@ require 'ExecuteQuery.php';
  	}
 
  	function tratandoRequisicao ($json) {
- 		if ($json["request_type"] == "infoDB") {
- 			$cc = new ExecuteQuery (); 
- 			$result = $cc->makeQuery($json); 
- 			exit(json_encode($result)); 
- 			// $this->log ($result); 
- 		} else {
- 			$this->log("Entra aqui no else");
- 		}
-
- 		
+ 		$j = json_decode($json); 
+ 		$r = array('chavinha' => 'valorzinho');
+ 		$d = json_encode($r); 
+ 		exit($d); 
+ 		// if ($json["request_type"] == "infoDB") {
+ 		// 	$cc = new ExecuteQuery (); 
+ 		// 	$result = $cc->makeQuery($json); 
+ 		// 	exit(json_encode($result)); 
+ 		// 	// $this->log ($result); 
+ 		// } else {
+ 		// 	$this->log("Entra aqui no else");
+ 		// }
  	}
  }
