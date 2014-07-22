@@ -71,8 +71,7 @@ public class GameActivity extends BaseGameActivity {
 	            	
 	                mEngine.unregisterUpdateHandler(pTimerHandler);
 	                //Tenho que confirmar se a primeira vez deve começar com falso. 
-	                if (GameManager.getInstance().alreadyLogedInFacebook()) {
-//	            
+	                if (GameManager.getInstance().getDataInMemory().alreadyLogedInFacebook()) {
 	                	SceneManager.getInstance().createMainMenuScene();
 	                }
 //	                Talvez aqui eu tenha que fazer mais alguma verificação pra ver se eu consigo pegar os dados do usuario 

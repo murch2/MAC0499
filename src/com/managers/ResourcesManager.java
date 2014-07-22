@@ -37,13 +37,16 @@ public class ResourcesManager {
     private BuildableBitmapTextureAtlas facebookConnectMenuAtlas; 
     
     public Font font; 
+    
+    public ITextureRegion headerRegion;
+    private BuildableBitmapTextureAtlas headerAtlas;
+    
 	public static ResourcesManager getInstance() {
         return INSTANCE;
     }
 	
 	//Só deverá ser chamado uma vez. 
-    public static void prepareManager(Engine engine, GameActivity activity, Camera camera, VertexBufferObjectManager vbom)
-    {
+    public static void prepareManager(Engine engine, GameActivity activity, Camera camera, VertexBufferObjectManager vbom) {
         getInstance().engine = engine;
         getInstance().activity = activity;
         getInstance().camera = camera;
@@ -97,11 +100,28 @@ public class ResourcesManager {
     }
     
     public synchronized void loadMainMenuScene() {
-
+    	
     }
 
     public synchronized void unloadMainMenuScene() {
 
+    }
+    
+    public synchronized void loadHeader() {
+    	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/Header/"); 
+    	headerAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 490, 60, TextureOptions.BILINEAR); 
+    	headerRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(headerAtlas, activity, "GreenBar.png");
+    	
+    	try {
+			this.headerAtlas.build((new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1)));
+			this.headerAtlas.load(); 
+		} catch (TextureAtlasBuilderException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    public synchronized void unloadHeader() {
+    	
     }
     
     

@@ -24,10 +24,6 @@ public class GameManager {
 	public DataInMemory getDataInMemory() {
 		return dataInMemory;
 	}
-	
-	public boolean alreadyLogedInFacebook() {
-		return dataInMemory.readBooleanData(Constants.FACEBOOK_LOGIN); 
-	}
 
 	public boolean isLoggedUser() {
 		return loggedUser;

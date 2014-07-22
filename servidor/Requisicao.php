@@ -13,7 +13,6 @@ require 'ExecuteQuery.php';
  	public $json; 
 
  	function __construct($json) {
- 		$this->log("DEBUG1"); 
  		$json_decoded = json_decode($json, true); 
  		$this->tratandoRequisicao($json_decoded); 
  	}
@@ -25,11 +24,9 @@ require 'ExecuteQuery.php';
  		fclose($fp); 
  	}
 
- 	function tratandoRequisicao ($json) {
- 		$this->log("DEBUG2"); 
+ 	function tratandoRequisicao ($json) { 
  		$j = json_decode($json); 
  		$r = array('chavinha' => 'valorzinho');
- 		$this->log("DEBUG3"); 
  		$d = json_encode($r); 
  		exit($d); 
  		// if ($json["request_type"] == "infoDB") {

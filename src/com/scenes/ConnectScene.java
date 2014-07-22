@@ -66,7 +66,6 @@ public class ConnectScene extends BaseScene implements IOnMenuItemClickListener,
 	}
 
 	private void createFacebookConnectMenu() {
-		System.out.println("DEBUG - createFacebookConnectMenu");
 		facebookMenu = new MenuScene(camera);
 		facebookMenu.setPosition(0, 0); 
 

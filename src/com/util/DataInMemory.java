@@ -67,4 +67,8 @@ public class DataInMemory {
 		return preferences.getString(key, "");  
 	}
 	
+	public boolean alreadyLogedInFacebook() {
+		return readBooleanData(Constants.FACEBOOK_LOGIN); 
+	}
+	
 }
