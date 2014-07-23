@@ -37,8 +37,10 @@ public class ResourcesManager {
     private BuildableBitmapTextureAtlas facebookConnectMenuAtlas; 
     
     public Font font; 
-    
-    public ITextureRegion headerRegion;
+
+    //Header
+    public ITextureRegion headerBackgroundRegion;
+    public ITextureRegion headerProfileRegion;
     private BuildableBitmapTextureAtlas headerAtlas;
     
 	public static ResourcesManager getInstance() {
@@ -100,7 +102,8 @@ public class ResourcesManager {
     }
     
     public synchronized void loadMainMenuScene() {
-    	
+    	loadFonts();
+    	loadHeader(); 
     }
 
     public synchronized void unloadMainMenuScene() {
@@ -109,9 +112,9 @@ public class ResourcesManager {
     
     public synchronized void loadHeader() {
     	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/Header/"); 
-    	headerAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 490, 60, TextureOptions.BILINEAR); 
-    	headerRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(headerAtlas, activity, "GreenBar.png");
-    	
+    	headerAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 490, 110, TextureOptions.BILINEAR); 
+    	headerBackgroundRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(headerAtlas, activity, "GreenBar.png");
+    	headerProfileRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(headerAtlas, activity, "profile.png");
     	try {
 			this.headerAtlas.build((new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1)));
 			this.headerAtlas.load(); 

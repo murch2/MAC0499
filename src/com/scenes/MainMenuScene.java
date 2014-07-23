@@ -4,13 +4,7 @@
  */
 package com.scenes;
 
-import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.scene.background.Background;
-import org.andengine.entity.scene.menu.MenuScene;
-import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
-import org.andengine.entity.scene.menu.item.IMenuItem;
-import org.andengine.entity.scene.menu.item.SpriteMenuItem;
-import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.util.adt.color.Color;
 import org.json.JSONObject;
 
@@ -24,16 +18,15 @@ import com.server.HTTPResponseListener;
 import com.server.MakeParameters;
 import com.util.FacebookFacade;
 
-public class MainMenuScene extends BaseSceneWithHUD implements HTTPResponseListener, GraphUserCallback, IOnMenuItemClickListener{
+public class MainMenuScene extends BaseSceneWithHUD implements HTTPResponseListener, GraphUserCallback {
 
 	//Talvez isso vá pra uma das classes singleton. 
-	private FacebookFacade fb;
-	private MenuScene menuTeste; 
+	private FacebookFacade fb; 
 
 	@Override
 	public void createScene() {
 		createBackground();
-		createHUD(camera); 
+		createHUD(); 
 		makeRequestTest();
 		if (!GameManager.getInstance().isLoggedUser()) {
 			fb = new FacebookFacade(); 
@@ -41,10 +34,10 @@ public class MainMenuScene extends BaseSceneWithHUD implements HTTPResponseListe
 		}
 	}
 
+	
 	private void makeRequestTest() {
 		JSONObject obj = MakeParameters.makeTestparams();
 		new HTTPPostRequester().asyncPost(this, obj); 
-
 	}
 
 	private void createBackground() {
@@ -84,15 +77,4 @@ public class MainMenuScene extends BaseSceneWithHUD implements HTTPResponseListe
 			GameManager.getInstance().setUserID(user.getId()); 
 		}
 	}
-
-	/* (non-Javadoc)
-	 * @see org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener#onMenuItemClicked(org.andengine.entity.scene.menu.MenuScene, org.andengine.entity.scene.menu.item.IMenuItem, float, float)
-	 */
-	@Override
-	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,
-			float pMenuItemLocalX, float pMenuItemLocalY) {
-
-		return false;
-	}
-
 }

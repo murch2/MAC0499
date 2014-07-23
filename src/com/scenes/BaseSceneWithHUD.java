@@ -4,19 +4,16 @@
  */
 package com.scenes;
 
-import org.andengine.engine.camera.Camera;
 import org.andengine.engine.camera.hud.HUD;
 
-import com.managers.ResourcesManager;
-import com.model.Header;
-
+import com.model.TopHUD;
 
 public abstract class BaseSceneWithHUD extends BaseScene {
 	
-	public void createHUD(Camera camera) {
-		HUD hud = new HUD(); 
-		hud.attachChild(new Header(ResourcesManager.getInstance().vbom)); 
+	//Do jeito que está feito agora toda cena vai ter um desse novo, o jeito de contornar isso seria ter 
+//	um Header carregado num HUD e eu vou colocando e tirando das cenas.  
+	public void createHUD() {
+		HUD hud = new TopHUD(); 
 		camera.setHUD(hud); 
-	}
-	
+	}	
 }
