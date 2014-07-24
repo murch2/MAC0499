@@ -33,12 +33,14 @@ public class GameActivity extends BaseGameActivity {
 //	(Método para o facebook funcionar)
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	System.out.println("BUCETA 6");
 	  super.onActivityResult(requestCode, resultCode, data);
 	  Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
 	}
 	
 	@Override
 	public EngineOptions onCreateEngineOptions() {
+		System.out.println("BUCETA 5");
 	    camera = new Camera(0, 0, Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT);
 	    EngineOptions engineOptions = new EngineOptions(true, ScreenOrientation.PORTRAIT_SENSOR, 
 	    		new RatioResolutionPolicy(Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT), camera);
@@ -50,7 +52,8 @@ public class GameActivity extends BaseGameActivity {
 
 	@Override
 	public void onCreateResources(OnCreateResourcesCallback pOnCreateResourcesCallback) throws IOException {
-		ResourcesManager.prepareManager(mEngine, this, camera, getVertexBufferObjectManager());
+		System.out.println("BUCETA 4");
+		ResourcesManager.prepareResourcesManager(mEngine, this, camera, getVertexBufferObjectManager());
 		resourcesManager = ResourcesManager.getInstance();
 		pOnCreateResourcesCallback.onCreateResourcesFinished();
 	}
@@ -59,12 +62,14 @@ public class GameActivity extends BaseGameActivity {
 	@Override
 	public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback)
 			throws IOException {
+		System.out.println("BUCETA 3");
 		SceneManager.getInstance().createSplashScene(pOnCreateSceneCallback);
 	}
 
 	@Override
 	public void onPopulateScene(Scene pScene, OnPopulateSceneCallback pOnPopulateSceneCallback) {
-	    mEngine.registerUpdateHandler(new TimerHandler(2f, new ITimerCallback() 
+		System.out.println("BUCETA 2");
+		mEngine.registerUpdateHandler(new TimerHandler(2f, new ITimerCallback() 
 	    {
 	            public void onTimePassed(final TimerHandler pTimerHandler) 
 	            {
@@ -86,13 +91,13 @@ public class GameActivity extends BaseGameActivity {
 	
 	@Override
 	public Engine onCreateEngine(EngineOptions pEngineOptions) {
+		System.out.println("BUCETA 1");
 	    return new LimitedFPSEngine(pEngineOptions, 60);
 	}
 	
 	@Override 
 	protected void onDestroy() {
 		super.onDestroy(); 
-		System.exit(0); 
 	}
 	
 //	@Override

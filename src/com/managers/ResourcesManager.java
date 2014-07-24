@@ -48,7 +48,7 @@ public class ResourcesManager {
     }
 	
 	//Só deverá ser chamado uma vez. 
-    public static void prepareManager(Engine engine, GameActivity activity, Camera camera, VertexBufferObjectManager vbom) {
+    public static void prepareResourcesManager(Engine engine, GameActivity activity, Camera camera, VertexBufferObjectManager vbom) {
         getInstance().engine = engine;
         getInstance().activity = activity;
         getInstance().camera = camera;
